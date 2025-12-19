@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al-Absi Printing & IT Service</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =====================================================
+   GLOBAL VARIABLE
+===================================================== */
+:root{
+  --primary:#2563eb;
+  --accent:#facc15;
+  --dark:#0f172a;
+  --light:#f8fafc;
+  --gray:#64748b;
+  --radius:18px;
+  --transition:.35s ease;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--light);
+  color:var(--dark);
+  overflow-x:hidden;
+}
+
+/* =====================================================
+   LOADER
+===================================================== */
+#loader{
+  position:fixed;
+  inset:0;
+  background:#020617;
+  display:grid;
+  place-items:center;
+  z-index:9999;
+}
+.spinner{
+  width:60px;
+  height:60px;
+  border:6px solid #1e293b;
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+nav{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  padding:1rem 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(12px);
+  z-index:1000;
+  transition:var(--transition);
+}
+nav.scrolled{
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+.logo{
+  font-size:1.3rem;
+  font-weight:700;
+  color:var(--primary);
+}
+
+.menu{
+  display:flex;
+  gap:2rem;
+}
+
+.menu a{
+  text-decoration:none;
+  color:var(--dark);
+  font-weight:500;
+  position:relative;
+}
+.menu a::after{
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0;
+  height:3px;
+  background:var(--accent);
+  transition:.3s;
+}
+.menu a:hover::after{
+  width:100%;
+}
+
+/* TOGGLE */
+.toggle{
+  display:none;
+  flex-direction:column;
+  gap:6px;
+  cursor:pointer;
+}
+.toggle span{
+  width:26px;
+  height:3px;
+  background:var(--dark);
+  transition:.4s;
+}
+
+/* MOBILE MENU */
+@media(max-width:768px){
+  .toggle{display:flex}
+  .menu{
+    position:absolute;
+    top:100%; left:0;
+    width:100%;
+    background:#fff;
+    flex-direction:column;
+    align-items:center;
+    gap:1.6rem;
+    padding:2rem 0;
+    transform:translateY(-30px);
+    opacity:0;
+    pointer-events:none;
+    transition:.4s;
+  }
+  .menu.active{
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+header{
+  min-height:100vh;
+  background:
+    linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
+    url('navbar.jpg') center/cover no-repeat;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  color:#fff;
+  padding:0 1.5rem;
+}
+
+.hero-content{
+  max-width:720px;
+}
+
+.hero-content h1{
+  font-size:clamp(2.2rem,5vw,3.6rem);
+  font-weight:700;
+  animation:fadeUp .8s forwards;
+}
+
+.hero-content p{
+  margin:1.2rem 0 2.2rem;
+  opacity:.9;
+  animation:fadeUp 1.2s forwards;
+}
+
+.btn{
+  display:inline-block;
+  background:var(--accent);
+  color:#000;
+  padding:1rem 2.6rem;
+  border-radius:40px;
+  text-decoration:none;
+  font-weight:600;
+  transition:.3s;
+  animation:fadeUp 1.6s forwards;
+}
+.btn:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 25px rgba(250,204,21,.5);
+}
+
+/* SCROLL INDICATOR */
+.scroll{
+  position:absolute;
+  bottom:30px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  opacity:.8;
+}
+.scroll span{
+  width:4px;
+  height:10px;
+  background:#fff;
+  animation:scroll 1.5s infinite;
+}
+@keyframes scroll{
+  0%{opacity:0;transform:translateY(0)}
+  50%{opacity:1}
+  100%{opacity:0;transform:translateY(10px)}
+}
+
+/* =====================================================
+   ANIMATION
+===================================================== */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1;transform:none}
+}
+
+/* =====================================================
+   SECTION GLOBAL
+===================================================== */
+section{
+  padding:5rem 6%;
+}
+.section-title{
+  text-align:center;
+  margin-bottom:3rem;
+}
+.section-title h2{
+  font-size:2.2rem;
+  margin-bottom:.5rem;
+}
+.section-title p{
+  color:var(--gray);
+  font-size:.95rem;
+}
+
+/* =====================================================
+   galery
+===================================================== */
+#gallery .carousel{
+  position:relative;
+  overflow:hidden;
+}
+
+#gallery .track{
+  display:flex;
+  gap:1.5rem;
+  transition:.5s ease;
+}
+
+#gallery img{
+  min-width:280px;
+  height:200px;
+  object-fit:cover;
+  border-radius:18px;
+}
+
+.carousel-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:#2563eb;
+  color:#fff;
+  border:none;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:1.6rem;
+  z-index:2;
+}
+
+.carousel-btn.left{left:10px}
+.carousel-btn.right{right:10px}
+
+
+/* =====================================================
+   services
+===================================================== */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:2rem;
+}
+
+.service-box{
+  background:#fff;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 15px 30px rgba(0,0,0,.15);
+  text-align:center;
+  padding-bottom:1.5rem;
+  transition:.3s;
+}
+
+.service-box:hover{
+  transform:translateY(-8px);
+}
+
+.service-box img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+
+.service-box h4{
+  margin:1rem 0 .3rem;
+}
+
+.service-box p{
+  font-size:.9rem;
+  color:#64748b;
+}
+
+.order-btn{
+  display:inline-block;
+  margin-top:1rem;
+  background:#2563eb;
+  color:#fff;
+  padding:.8rem 1.8rem;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:600;
+  transition:.3s;
+}
+
+.order-btn:hover{
+  background:#1e40af;
+}
+
+
+/* =====================================================
+   PRICING
+===================================================== */
+#pricing{
+  background:#fff;
+}
+.pricing-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:2rem;
+}
+.price-card{
+  background:#f8fafc;
+  padding:2rem;
+  border-radius:24px;
+  text-align:center;
+  box-shadow:0 15px 30px rgba(0,0,0,.12);
+  transition:.4s;
+}
+.price-card:hover{
+  transform:translateY(-10px);
+}
+.price-card h3{
+  margin-bottom:.5rem;
+}
+.price{
+  font-size:2rem;
+  font-weight:700;
+  color:var(--primary);
+  margin:1rem 0;
+}
+.price-card ul{
+  list-style:none;
+  margin:1.5rem 0;
+}
+.price-card li{
+  margin:.5rem 0;
+  font-size:.9rem;
+}
+.price-card a{
+  display:inline-block;
+  margin-top:1rem;
+  background:var(--primary);
+  color:#fff;
+  padding:.8rem 2rem;
+  border-radius:30px;
+  text-decoration:none;
+}
+
+/* =====================================================
+   SCROLL ANIMATION
+===================================================== */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:.8s ease;
+}
+.reveal.active{
+  opacity:1;
+  transform:none;
+}
+
+/* =====================================================
+   ORDER FLOW
+===================================================== */
+#order-flow{
+  padding:4rem 6%;
+}
+
+.qa-list{
+  max-width:800px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+}
+
+.qa-item{
+  background:#fff;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+.qa-question{
+  width:100%;
+  background:none;
+  border:none;
+  padding:1.2rem 1.4rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:1rem;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.qa-question span{
+  margin-right:.6rem;
+}
+
+.qa-question i{
+  font-style:normal;
+  font-size:1.5rem;
+  transition:.3s;
+}
+
+.qa-answer{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .4s ease;
+  padding:0 1.4rem;
+}
+
+.qa-answer p{
+  padding:1rem 0;
+  color:#475569;
+  line-height:1.6;
+}
+
+.qa-item.active .qa-answer{
+  max-height:200px;
+}
+
+.qa-item.active .qa-question i{
+  transform:rotate(45deg);
+}
+
+.faq{
+  max-width:800px;
+  margin:auto;
+}
+
+.faq-item{
+  background:#fff;
+  border-radius:12px;
+  margin-bottom:1rem;
+  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.faq-question{
+  width:100%;
+  background:none;
+  border:none;
+  padding:1rem 1.2rem;
+  font-size:1rem;
+  font-weight:600;
+  display:flex;
+  justify-content:space-between;
+  cursor:pointer;
+}
+
+.faq-answer{
+  max-height:0;
+  overflow:hidden;
+  padding:0 1.2rem;
+  transition:.4s ease;
+}
+
+.faq-item.active .faq-answer{
+  max-height:300px;
+  padding-bottom:1rem;
+}
+
+.faq-item.active .faq-question span{
+  transform:rotate(45deg);
+}
+
+/* BUTTON REKENING */
+
+.rekening-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  margin-top: 10px;
+}
+.rekening-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  margin-top: 10px;
+}
+
+.rekening-list.show {
+  max-height: 500px; /* cukup buat 3+ rekening */
+}
+.rekening-list.show {
+  max-height: 500px; /* cukup buat 3+ rekening */
+}
+
+.rekening {
+  background: #f7f7f7;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.pay-btn {
+  margin-top: 10px;
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
+/* =====================================================
+   FAQ
+===================================================== */
+#faq{
+  background:#fff;
+}
+.faq-box{
+  max-width:800px;
+  margin:auto;
+}
+.faq-item{
+  background:#f1f5f9;
+  margin-bottom:1rem;
+  border-radius:14px;
+  overflow:hidden;
+}
+.faq-question{
+  padding:1.2rem 1.5rem;
+  cursor:pointer;
+  font-weight:600;
+  display:flex;
+  justify-content:space-between;
+}
+.faq-answer{
+  max-height:0;
+  overflow:hidden;
+  background:#fff;
+  padding:0 1.5rem;
+  transition:.4s;
+}
+.faq-item.active .faq-answer{
+  max-height:200px;
+  padding:1rem 1.5rem;
+}
+
+/* =====================================================
+   TESTIMONI
+===================================================== */
+#testimoni{
+  background:#f1f5f9;
+}
+.testi-wrapper{
+  overflow:hidden;
+  max-width:900px;
+  margin:auto;
+}
+.testi-track{
+  display:flex;
+  gap:1.5rem;
+  transition:.6s;
+}
+.testi-card{
+  min-width:280px;
+  background:#fff;
+  padding:1.5rem;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+.testi-card h4{
+  margin-bottom:.4rem;
+}
+.testi-card p{
+  font-size:.9rem;
+  color:var(--gray);
+}
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+body.dark{
+  background:#020617;
+  color:#e5e7eb;
+}
+body.dark nav{
+  background:rgba(2,6,23,.9);
+}
+body.dark .menu a{color:#e5e7eb}
+body.dark section{background:#020617}
+body.dark .service-card,
+body.dark .price-card,
+body.dark .flow-card,
+body.dark .testi-card{
+  background:#020617;
+  color:#e5e7eb;
+  box-shadow:0 10px 25px rgba(255,255,255,.05);
+}
+body.dark .faq-item{background:#020617}
+body.dark footer{background:#020617}
+
+/* TOGGLE BUTTON */
+.dark-toggle{
+  position:fixed;
+  left:20px;
+  bottom:20px;
+  background:#020617;
+  color:#fff;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  z-index:999;
+  box-shadow:0 10px 25px rgba(0,0,0,.4);
+}
+body.dark .dark-toggle{
+  background:#facc15;
+  color:#000;
+}
+
+/* =====================================================
+   WHATSAPP FLOAT
+===================================================== */
+.wa-float{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#25D366;
+  color:#fff;
+  padding:14px 22px;
+  border-radius:40px;
+  text-decoration:none;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  box-shadow:0 10px 25px rgba(0,0,0,.3);
+  animation:float 3s infinite;
+  z-index:999;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+/* =====================================================
+   BACK TO TOP
+===================================================== */
+.top-btn{
+  position:fixed;
+  right:20px;
+  bottom:90px;
+  background:var(--primary);
+  color:#fff;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
+.top-btn.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+footer{
+  background:#020617;
+  color:#e5e7eb;
+  padding:4rem 6% 2rem;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:2rem;
+}
+footer h4{
+  margin-bottom:1rem;
+}
+footer p, footer li{
+  font-size:.9rem;
+  color:#cbd5f5;
+}
+footer ul{
+  list-style:none;
+}
+footer a{
+  color:#cbd5f5;
+  text-decoration:none;
+}
+.footer-bottom{
+  text-align:center;
+  margin-top:3rem;
+  font-size:.85rem;
+  opacity:.6;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="nav">
+  <div class="logo">Al-Absi Printing</div>
+  <div class="toggle" id="toggle">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="menu" id="menu">
+    <a href="#home">Home</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#services">Layanan</a>
+    <a href="#pricing">Pesan</a>
+  </div>
+</nav>
+
+<!-- HERO header -->
+<header id="home">
+  <div class="hero-content">
+    <h1>Percetakan & IT Service</h1>
+    <p>Solusi Cetak Profesional & Layanan IT Terpercaya</p>
+    <a href="#services" class="btn">Lihat Layanan</a>
+  </div>
+
+  <div class="scroll">
+    <span></span><span></span><span></span>
+  </div>
+</header>
+
+<!-- GALLERY CAROUSEL -->
+<section id="gallery">
+  <div class="section-title">
+    <h2>Hasil Pekerjaan Kami</h2>
+    <p>Geser untuk melihat hasil cetakan</p>
+  </div>
+
+  <div class="carousel">
+    <button class="carousel-btn left" onclick="slideGallery(-1)">‹</button>
+
+    <div class="track" id="galleryTrack">
+      <img src="a1.jpeg">
+      <img src="b1.jpeg">
+      <img src="a3.jpeg">
+      <img src="b2.jpeg">
+      <img src="a6.jpeg">
+      <img src="a7.jpeg">
+      <img src="a4.jpeg">
+      <img src="a5.jpeg">
+      <img src="b3.jpeg">
+      <img src="b5 (1).jpeg">
+      <img src="b6.jpeg">
+      <img src="b7.jpeg">
+    </div>
+
+    <button class="carousel-btn right" onclick="slideGallery(1)">›</button>
+  </div>
+</section>
+
+
+
+<!-- SERVICES (STATIS) -->
+<section id="services">
+  <div class="section-title">
+    <h2>Layanan Kami</h2>
+    <p>Silakan pilih layanan & pesan langsung</p>
+  </div>
+
+  <div class="services-grid">
+
+    <div class="service-box">
+      <img src="https://images.pexels.com/photos/6476264/pexels-photo-6476264.jpeg?auto=compress&cs=tinysrgb&w=900">
+      <h4>Fotocopy & Scan</h4>
+      <p>Dokumen cepat & rapi</p>
+      <a class="order-btn" href="https://wa.me/6282157477767?text=Halo saya mau fotocopy">Pesan Sekarang</a>
+    </div>
+
+    <div class="service-box">
+      <img src="https://images.pexels.com/photos/6476258/pexels-photo-6476258.jpeg?auto=compress&cs=tinysrgb&w=900">
+      <h4>Print & Jilid</h4>
+      <p>Hitam putih & warna</p>
+      <a class="order-btn" href="https://wa.me/6282157477767?text=Halo saya mau print">Pesan Sekarang</a>
+    </div>
+
+    <div class="service-box">
+      <img src="a9.jpeg">
+      <h4>Cetak Undangan</h4>
+      <p>Desain elegan & custom</p>
+      <a class="order-btn" href=undangan.html>Pesan Sekarang</a>
+    </div>
+
+    <div class="service-box">
+      <img src="https://images.pexels.com/photos/5380642/pexels-photo-5380642.jpeg?auto=compress&cs=tinysrgb&w=900">
+      <h4>Instal Laptop</h4>
+      <p>Windows & software</p>
+      <a class="order-btn" href="https://wa.me/6282157477767?text=Halo saya mau instal laptop">Pesan Sekarang</a>
+    </div>
+
+    <div class="service-box">
+      <img src="a2.jpeg">
+      <h4>Name Tag</h4>
+      <p>kuat & mengkilap</p>
+      <a class="order-btn" href="https://wa.me/6282157477767?text=Halo saya mau pesn Name Tag">Pesan Sekarang</a>
+    </div>
+
+    <div class="service-box">
+      <img src="b4.jpeg">
+      <h4>Cetak Yasin</h4>
+      <p>Jelas & Dijilid Rapi</p>
+      <a class="order-btn" href="https://wa.me/6282157477767?text=Halo saya mau cetak Yasin">Pesan Sekarang</a>
+    </div>
+
+    <div class="service-box">
+      <img src="toya.jpg">
+      <h4>Cetak Foto</h4>
+      <p>Kualitas Gambar Tajam</p>
+      <a class="order-btn" href="https://wa.me/6282157477767?text=Halo saya mau cetak Foto">Pesan Sekarang</a>
+    </div>
+
+    <div class="service-box">
+      <img src="balint.jpg">
+      <h4>Laminating</h4>
+      <p>Kuat & Tahan</p>
+      <a class="order-btn" href="https://wa.me/6282157477767?text=Halo saya mau laminating">Pesan Sekarang</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- PRICING paket harga-->
+<section id="pricing">
+  <div class="section-title">
+    <h2>Paket Harga</h2>
+    <p>Harga transparan & bersahabat</p>
+  </div>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <h3>Basic</h3>
+      <div class="price">Rp 500-5000</div>
+      <ul>
+        <li>Print Hitam Putih/ Warna</li>
+        <li>Fotocopy</li>
+        <li>Scan</li>
+        <li>Undangan</li>
+      </ul>
+      <a href="https://wa.me/6282157477767">Order</a>
+    </div>
+
+    <div class="price-card">
+      <h3>Standard</h3>
+      <div class="price">Rp15k-50K</div>
+      <ul>
+        <li>Cetak Yasin</li>
+        <li>Banner</li>
+      </ul>
+      <a href="https://wa.me/6282157477767">Order</a>
+    </div>
+
+    <div class="price-card">
+      <h3>Premium</h3>
+      <div class="price">Rp50K-100K</div>
+      <ul>
+        <li>Instal Ulang Laptop</li>
+        <li>IT Support</li>
+      </ul>
+      <a href="https://wa.me/6282157477767">Order</a>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER FLOW -->
+<section id="order-flow" class="reveal">
+  <div class="section-title">
+    <h2>Cara Pemesanan</h2>
+    <p>Mudah & cepat</p>
+  </div>
+
+  <div class="faq">
+
+    <div class="faq-item">
+      <button class="faq-question">
+        📲 Bagaimana cara memesan?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Hubungi kami melalui WhatsApp, lalu sampaikan kebutuhan cetak atau layanan IT Anda.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        📝 File apa saja yang bisa dikirim?
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Kami menerima file PDF, DOC, JPG, PNG, dan format lainnya.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+  <button class="faq-question">
+    💳 Metode Pembayaran (cash/ transfer)
+    <span>+</span>
+  </button>
+
+  <div class="faq-answer">
+
+    <button class="pay-btn" onclick="toggleRek(this)">
+      Bank BPD KALBAR
+    </button>
+
+    <div class="rekening-list">
+      <div class="rekening">
+        <p><strong></strong>1162508641</p>
+        <p>a.n. <b>EDI SUPRAPTO (BPD KALBAR)</b></p>
+      </div>
+    </div>
+    <button class="pay-btn" onclick="toggleRek(this)">
+      Bank BRI
+    </button>
+    <div class="rekening-list">
+      <div class="rekening">
+        <p><strong>007101084088500</strong></p>
+        <p>a.n. <b>EDI SUPRAPTO (BRI)</b></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="faq-item">
+      <button class="faq-question">
+        ✅ Pengambilan Pesanan
+        <span>+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Pesanan bisa diambil langsung atau dikirim sesuai kesepakatan.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- FAQ -->
+<section id="faq" class="reveal">
+  <div class="section-title">
+    <h2>Pertanyaan Umum</h2>
+    <p>Yang sering ditanyakan</p>
+  </div>
+
+  <div class="faq-box">
+    <div class="faq-item">
+      <div class="faq-question">Berapa lama proses cetak?</div>
+      <div class="faq-answer">Biasanya 10–30 menit tergantung jumlah.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Bisa kirim file lewat WA?</div>
+      <div class="faq-answer">Bisa, format PDF, JPG, DOC.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Apakah bisa cetak satuan?</div>
+      <div class="faq-answer">Bisa, tanpa minimal order.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONI -->
+<section id="testimoni" class="reveal">
+  <div class="section-title">
+    <h2>Apa Kata Pelanggan</h2>
+    <p>Testimoni asli</p>
+  </div>
+
+  <div class="testi-wrapper">
+    <div class="testi-track" id="testiTrack">
+      <div class="testi-card">
+        <h4>Andi</h4>
+        <p>Hasil cetak rapi dan cepat.</p>
+      </div>
+      <div class="testi-card">
+        <h4>Siti</h4>
+        <p>Pelayanan ramah, harga terjangkau.</p>
+      </div>
+      <div class="testi-card">
+        <h4>Budi</h4>
+        <p>Instal laptop beres & cepat.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DARK MODE TOGGLE -->
+<div class="dark-toggle" id="darkToggle">🌙</div>
+
+<!-- BACK TO TOP -->
+<div class="top-btn" id="topBtn">↑</div>
+
+<!-- WHATSAPP -->
+<a class="wa-float" href="https://wa.me/6282157477767">
+  💬 WhatsApp
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h4>Al-Absi Printing</h4>
+      <p>Percetakan & IT Service profesional.</p>
+    </div>
+
+    <div>
+      <h4>Layanan</h4>
+      <ul>
+        <li>Print & Fotocopy</li>
+        <li>Cetak Undangan</li>
+        <li>Instal Laptop</li>
+        <li>Pesan Banner</li>
+        <li>Cetak Yasin</li>
+        <li>Cetak Foto</li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Kontak</h4>
+      <p>📍 Jl. soeparto</p>
+      <p>📞 085347974667</p>
+      <p>⏰ 08.00 – 21.00</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Al-Absi Printing • All Rights Reserved
+  </div>
+</footer>
+
+<script>
+/* LOADER */
+window.onload=()=>{
+  document.getElementById('loader').style.display='none';
+}
+
+/* NAV TOGGLE */
+const toggle=document.getElementById('toggle');
+const menu=document.getElementById('menu');
+toggle.onclick=()=>menu.classList.toggle('active');
+
+/* NAV SCROLL */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>50);
+});
+
+/* =====================================================
+   SWIPE CAROUSEL (MOBILE FRIENDLY)
+===================================================== */
+
+let galleryPos = 0;
+function slideGallery(dir){
+  const track = document.getElementById('galleryTrack');
+  galleryPos += dir;
+  if(galleryPos < 0) galleryPos = 0;
+  if(galleryPos > track.children.length - 1){
+    galleryPos = track.children.length - 1;
+  }
+  track.style.transform = `translateX(-${galleryPos * 300}px)`;
+}
+
+
+/* AUTO SLIDE DESKTOP */
+let pos=0;
+setInterval(()=>{
+  pos++;
+  if(pos>track.children.length-1) pos=0;
+  track.style.transform=`translateX(-${pos*300}px)`;
+},3500);
+
+
+const qaItems = document.querySelectorAll('.qa-item');
+
+qaItems.forEach(item => {
+  const btn = item.querySelector('.qa-question');
+
+  btn.addEventListener('click', () => {
+    item.classList.toggle('active');
+  });
+});
+
+
+const faqs = document.querySelectorAll('.faq-item');
+
+faqs.forEach(item=>{
+  item.querySelector('.faq-question').onclick = () => {
+    item.classList.toggle('active');
+  };
+});
+
+function showRek(){
+  document.getElementById('rekening').style.display = 'block';
+}
+
+
+
+function toggleRek(btn) {
+  const list = btn.nextElementSibling;
+  list.classList.toggle("show");
+
+  btn.innerText = list.classList.contains("show")
+    ? "Sembunyikan Nomor Rekening"
+    : "Lihat Nomor Rekening";
+}
+
+
+
+
+/* =====================================================
+   FAQ ACCORDION
+===================================================== */
+document.querySelectorAll('.faq-question').forEach(q=>{
+  q.onclick=()=>{
+    q.parentElement.classList.toggle('active');
+  }
+});
+
+/* =====================================================
+   TESTIMONI SLIDER
+===================================================== */
+const testiTrack=document.getElementById('testiTrack');
+let testiPos=0;
+setInterval(()=>{
+  testiPos++;
+  if(testiPos>testiTrack.children.length-1) testiPos=0;
+  testiTrack.style.transform=`translateX(-${testiPos*300}px)`;
+},4000);
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+const reveals=document.querySelectorAll('.reveal');
+window.addEventListener('scroll',()=>{
+  reveals.forEach(r=>{
+    const top=r.getBoundingClientRect().top;
+    if(top<window.innerHeight-100){
+      r.classList.add('active');
+    }
+  });
+});
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+const darkToggle=document.getElementById('darkToggle');
+if(localStorage.getItem('dark')){
+  document.body.classList.add('dark');
+  darkToggle.textContent='☀️';
+}
+darkToggle.onclick=()=>{
+  document.body.classList.toggle('dark');
+  if(document.body.classList.contains('dark')){
+    localStorage.setItem('dark','1');
+    darkToggle.textContent='☀️';
+  }else{
+    localStorage.removeItem('dark');
+    darkToggle.textContent='🌙';
+  }
+};
+
+/* =====================================================
+   BACK TO TOP
+===================================================== */
+const topBtn=document.getElementById('topBtn');
+window.addEventListener('scroll',()=>{
+  topBtn.classList.toggle('show',window.scrollY>400);
+});
+topBtn.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+</script>
+
+</body>
+</html>
